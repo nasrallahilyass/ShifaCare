@@ -49,7 +49,7 @@
   }
 
   .header {
-    @apply text-32-bold md:text-36-bold;
+    @apply text-32-bold text-white md:text-36-bold;
   }
 
   .sub-header {
@@ -347,4 +347,21 @@
 
 .PhoneInputInput::placeholder {
   color: #1a1d21;
+}
+
+
+/* Style the input field text */
+.input-phone input {
+  color: white !important; /* Force white text for the input */
+  background-color: transparent !important; /* Ensure a transparent background */
+}
+
+/* Style the dropdown text (country selector) */
+.input-phone .react-phone-number-input__country-select {
+  color: black !important; /* Ensure black text for the dropdown */
+}
+
+/* Optional: Style the dropdown arrow */
+.input-phone .react-phone-number-input__country-select-arrow {
+  fill: black !important; /* Ensure the dropdown arrow remains black */
 }
