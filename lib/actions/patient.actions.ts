@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
@@ -7,9 +8,9 @@ import {
   BUCKET_ID,
   DATABASE_ID,
   ENDPOINT,
-  PATIENT_COLLECTION_ID,
+  PAITENT_COLLECTION_ID,
   PROJECT_ID,
-  databases,
+  database,
   storage,
   users,
 } from "../appwrite.config";
@@ -41,19 +42,19 @@ export const createUser = async (user: CreateUserParams) => {
   }
 };
 
-// // GET USER
-// export const getUser = async (userId: string) => {
-//   try {
-//     const user = await users.get(userId);
+// GET USER
+export const getUser = async (userId: string) => {
+  try {
+    const user = await users.get(userId);
 
-//     return parseStringify(user);
-//   } catch (error) {
-//     console.error(
-//       "An error occurred while retrieving the user details:",
-//       error
-//     );
-//   }
-// };
+    return parseStringify(user);
+  } catch (error) {
+    console.error(
+      "An error occurred while retrieving the user details:",
+      error
+    );
+  }
+};
 
 // // REGISTER PATIENT
 // export const registerPatient = async ({
