@@ -2,7 +2,8 @@
 /* eslint-disable no-unused-vars */
 // import { E164Number } from "libphonenumber-js/core";
 import Image from "next/image";
-// import ReactDatePicker from "react-datepicker";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { Control } from "react-hook-form";
 import PhoneInput from "react-phone-number-input";
 import { Checkbox } from "./ui/checkbox";
@@ -122,28 +123,28 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
       );
     case FormFieldType.SKELETON:
       return props.renderSkeleton ? props.renderSkeleton(field) : null;
-    // case FormFieldType.DATE_PICKER:
-    //   return (
-    //     <div className="flex rounded-md border border-dark-500 bg-dark-400">
-    //       <Image
-    //         src="/assets/icons/calendar.svg"
-    //         height={24}
-    //         width={24}
-    //         alt="user"
-    //         className="ml-2"
-    //       />
-    //       <FormControl>
-    //         <ReactDatePicker
-    //           showTimeSelect={props.showTimeSelect ?? false}
-    //           selected={field.value}
-    //           onChange={(date: Date) => field.onChange(date)}
-    //           timeInputLabel="Time:"
-    //           dateFormat={props.dateFormat ?? "MM/dd/yyyy"}
-    //           wrapperClassName="date-picker"
-    //         />
-    //       </FormControl>
-    //     </div>
-    //   );
+    case FormFieldType.DATE_PICKER:
+      return (
+        <div className="flex rounded-md border border-dark-500 bg-dark-400">
+          <Image
+            src="/assets/icons/calendar.svg"
+            height={24}
+            width={24}
+            alt="user"
+            className="ml-2"
+          />
+          <FormControl>
+            <DatePicker
+              showTimeSelect={props.showTimeSelect ?? false}
+              selected={field.value}
+              onChange={(date) => field.onChange(date)}
+              timeInputLabel="Time:"
+              dateFormat={props.dateFormat ?? "MM/dd/yyyy"}
+              wrapperClassName="date-picker"
+            />
+          </FormControl>
+        </div>
+      );
     default:
       return null;
   }
