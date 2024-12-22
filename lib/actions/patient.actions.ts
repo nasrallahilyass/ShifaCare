@@ -9,9 +9,9 @@ import {
   BUCKET_ID,
   DATABASE_ID,
   ENDPOINT,
-  PAITENT_COLLECTION_ID,
+  PATIENT_COLLECTION_ID,
   PROJECT_ID,
-  database,
+  databases,
   storage,
   users,
 } from "../appwrite.config";
@@ -66,26 +66,22 @@ export const registerPatient = async ({
     // Upload file ->  // https://appwrite.io/docs/references/cloud/client-web/storage#createFile
     let file;
     if (identificationDocument) {
-      const inputFile =
-        identificationDocument &&
-        InputFile.fromBuffer(
-          identificationDocument?.get("blobFile") as Blob,
-          identificationDocument?.get("fileName") as string
-        );
+      const inputFile = InputFile.fromBuffer(
+        identificationDocument?.get("blobFile") as Blob,
+        identificationDocument?.get("fileName") as string
+      );
 
       file = await storage.createFile(BUCKET_ID!, ID.unique(), inputFile);
     }
 
     // Create new patient document -> https://appwrite.io/docs/references/cloud/server-nodejs/databases#createDocument
-    const newPatient = await database.createDocument(
+    const newPatient = await databases.createDocument(
       DATABASE_ID!,
-      PAITENT_COLLECTION_ID!,
+      PATIENT_COLLECTION_ID!,
       ID.unique(),
       {
-        identificationDocumentId: file?.$id ? file.$id : null,
-        identificationDocumentUrl: file?.$id
-          ? `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file.$id}/view??project=${PROJECT_ID}`
-          : null,
+        identificationDocumentId: file?.$id || null,
+        identificationDocumentUrl: `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file?.$id}/view??project=${PROJECT_ID}`,
         ...patient,
       }
     );
@@ -96,20 +92,20 @@ export const registerPatient = async ({
   }
 };
 
-// // GET PATIENT
-// export const getPatient = async (userId: string) => {
-//   try {
-//     const patients = await databases.listDocuments(
-//       DATABASE_ID!,
-//       PATIENT_COLLECTION_ID!,
-//       [Query.equal("userId", [userId])]
-//     );
+// GET PATIENT
+export const getPatient = async (userId: string) => {
+  try {
+    const patients = await databases.listDocuments(
+      DATABASE_ID!,
+      PATIENT_COLLECTION_ID!,
+      [Query.equal("userId", [userId])]
+    );
 
-//     return parseStringify(patients.documents[0]);
-//   } catch (error) {
-//     console.error(
-//       "An error occurred while retrieving the patient details:",
-//       error
-//     );
-//   }
-// };
+    return parseStringify(patients.documents[0]);
+  } catch (error) {
+    console.error(
+      "An error occurred while retrieving the patient details:",
+      error
+    );
+  }
+};
