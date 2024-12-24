@@ -2,10 +2,13 @@ import React from "react";
 import Image from "next/image";
 import { StatCard } from "@/components/StatCard";
 import { getRecentAppointmentList } from "@/lib/actions/appointment.actions";
+import { DataTable } from "@/components/tables/DataTable";
+import { columns } from "@/components/tables/columns";
+
 
 const Admin = async () => {
   const appointments = await getRecentAppointmentList();
-//   console.log(appointments);
+  //   console.log(appointments);
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
       {/* Header section */}
@@ -59,6 +62,7 @@ const Admin = async () => {
       </main>
 
       {/* Data Table */}
+      <DataTable columns={columns} data={appointments.documents} />
     </div>
   );
 };
