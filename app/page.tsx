@@ -1,11 +1,15 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation"; // Import the hook
 import { PatientForm } from "@/components/forms/PatientForm";
 import PassKeyModal from "@/components/PassKeyModal";
 
-const Home = ({ searchParams }: SearchParamProps) => {
-  const { admin } = searchParams;
+const Home = () => {
+  const searchParams = useSearchParams(); // Use the hook to get searchParams
+  const admin = searchParams.get("admin"); // Get the 'admin' parameter
   const isAdmin = admin === "true";
+
   return (
     <div className="flex h-screen max-h-screen">
       {/* OTP verification */}
