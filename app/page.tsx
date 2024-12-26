@@ -1,17 +1,19 @@
-"use client"
+"use client";
+
+import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation"; // Import the hook
+import { useSearchParams } from "next/navigation";
 import { PatientForm } from "@/components/forms/PatientForm";
 import PassKeyModal from "@/components/PassKeyModal";
 
-const Home = () => {
-  const searchParams = useSearchParams(); 
-  const admin = searchParams?.get("admin"); 
+const Content = () => {
+  const searchParams = useSearchParams();
+  const admin = searchParams?.get("admin");
   const isAdmin = admin === "true";
 
   return (
-    <div className="flex h-screen max-h-screen">
+    <>
       {/* OTP verification */}
       {isAdmin && <PassKeyModal />}
 
@@ -26,7 +28,7 @@ const Home = () => {
               alt="Shifacare logo"
               className="h-10 w-fit"
             />
-            {/* Shifacare text on the right  */}
+            {/* Shifacare text on the right */}
             <span className="text-2xl font-bold text-white">ShifaCare</span>
           </div>
 
@@ -42,15 +44,24 @@ const Home = () => {
           </div>
         </div>
       </section>
+    </>
+  );
+};
 
-      <Image
-        src="/assets/images/onboarding-img.png"
-        height={1000}
-        width={1000}
-        alt="patient"
-        className="side-img max-w-[50%]"
-      />
-    </div>
+const Home = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="flex h-screen max-h-screen">
+        <Content />
+        <Image
+          src="/assets/images/onboarding-img.png"
+          height={1000}
+          width={1000}
+          alt="patient"
+          className="side-img max-w-[50%]"
+        />
+      </div>
+    </Suspense>
   );
 };
 
