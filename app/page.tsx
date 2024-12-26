@@ -6,8 +6,8 @@ import { PatientForm } from "@/components/forms/PatientForm";
 import PassKeyModal from "@/components/PassKeyModal";
 
 const Home = () => {
-  const searchParams = useSearchParams(); // Use the hook to get searchParams
-  const admin = searchParams.get("admin"); // Get the 'admin' parameter
+  const searchParams = useSearchParams(); 
+  const admin = searchParams?.get("admin"); 
   const isAdmin = admin === "true";
 
   return (
